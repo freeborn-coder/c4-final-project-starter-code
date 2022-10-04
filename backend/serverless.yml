@@ -6,10 +6,7 @@ service: serverless-todo-app
 plugins:
   - serverless-webpack
   - serverless-iam-roles-per-function
-  # - serverless-plugin-tracing
-
-# package:
-#   individually: true
+  - serverless-plugin-tracing
 
 provider:
   name: aws
@@ -88,8 +85,6 @@ functions:
         Action:
           - dynamodb:PutItem
         Resource: !GetAtt TodosTable.Arn
-    # TracingConfig:
-    #     Mode: Active
 
   # TODO: Configure this function
   # Provide property for setting up CORS, Authorizer, iamRoleStatements, and request schemas
@@ -108,8 +103,6 @@ functions:
       - Effect: Allow
         Action: dynamodb:UpdateItem
         Resource: !GetAtt TodosTable.Arn
-    # TracingConfig:
-    #     Mode: Active
             
 
   # TODO: Configure this function
@@ -126,8 +119,6 @@ functions:
       - Effect: Allow
         Action: dynamodb:deleteItem
         Resource: !GetAtt TodosTable.Arn
-    # TracingConfig:
-    #     Mode: Active
 
   # TODO: Configure this function
   # Provide property for setting up CORS, Authorizer, iamRoleStatements
@@ -145,8 +136,7 @@ functions:
           - s3:PutObject
           - s3:GetObject
         Resource: 'arn:aws:s3:::${self:provider.environment.ATTACHMENT_S3_BUCKET}/*'
-    # TracingConfig:
-    #     Mode: Active
+    
 
 resources:
   Resources:
